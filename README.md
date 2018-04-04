@@ -4,7 +4,7 @@ This repository contains various utilities to assist with managing and diagnosin
 
 ## Log Extraction Utility - getlogs.sh
 
-This shell script will harvest all of the log files mentioned below from the Design Time Server docker containers as well as the cli.log from the $HOME/.che/softwareag/data directory into a .zip file.  The zip file will be contain a folder for each workspace machine and a folder for the Che primary server.  To run it, Che and the workspaces must be up and running.
+This shell script will harvest all of the log files mentioned below from the Design Time Server docker containers as well as the cli.log from the $HOME/.che/softwareag/data directory into a .zip file.  The zip file will contain a folder for each workspace machine and a folder for the Che primary server.  To run it, Che and the workspaces must be up and running.
 
 ```
 ./getlogs.sh
