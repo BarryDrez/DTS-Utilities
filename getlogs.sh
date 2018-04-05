@@ -27,31 +27,35 @@ do
       mkdir ${LOGSDIR}/${name}/IntegrationServer/instances/default
       docker cp ${container}:/opt/softwareag/IntegrationServer/instances/logs ${LOGSDIR}/${name}/IntegrationServer/instances
       docker cp ${container}:/opt/softwareag/IntegrationServer/instances/default/logs ${LOGSDIR}/${name}/IntegrationServer/instances/default
-      echo Docker Container ${container}:/opt/softwareag/IntegrationServer/instances/logs
-      echo Docker Container ${container}:/opt/softwareag/IntegrationServer/instances/default/logs
+      echo "Docker Container" ${container}":/opt/softwareag/IntegrationServer/instances/logs"
+      echo "Docker Container" ${container}":/opt/softwareag/IntegrationServer/instances/default/logs"
     elif [[ $image = *"_db" ]]; then
       docker cp ${container}:/var/log/mysql.log ${LOGSDIR}/${name}
       docker cp ${container}:/var/log/mysql.err ${LOGSDIR}/${name}
       docker cp ${container}:/var/log/mysql ${LOGSDIR}/${name}
-      echo Docker Container ${container}:/var/log
-      echo Docker Container ${container}:/var/log/mysql
+      echo "Docker Container "${container}":/var/log"
+      echo "Docker Container "${container}":/var/log/mysql"
     elif [[ $name = "che" ]]; then
       docker cp ${container}:/logs ${LOGSDIR}/${name}
-      echo Docker Container ${container}:/logs
+      echo "Docker Container "${container}":/logs"
       if [ -e ${HOME}/.che/softwareag/data/cli.log ]; then
         cp ${HOME}/.che/softwareag/data/cli.log ${LOGSDIR}/${name}
-        echo File ${HOME}/.che/softwareag/data/cli.log
+        echo "File "${HOME}"/.che/softwareag/data/cli.log"
       fi
       if [ -e ${HOME}/che_data/cli.log ]; then
         cp ${HOME}/che_data/cli.log ${LOGSDIR}/${name}
-        echo File ${HOME}/che_data/cli.log
+        echo "File "${HOME}"/che_data/cli.log"
       fi
     fi
   fi
 done
 
-#Zip and remove the log directory
-zip -q -r ${LOGSDIR}.zip ${LOGSDIR}
-rm -R ${LOGSDIR}
-
-echo DTS logs saved in ${LOGSDIR}.zip
+command -v zip >/dev/null && {
+  #Zip and remove the log directory
+  zip -q -r ${LOGSDIR}.zip ${LOGSDIR}
+  rm -R ${LOGSDIR}
+  echo "DTS logs saved in "${LOGSDIR}".zip
+} || {
+  echo "zip utility not found"
+  echo "DTS logs saved in folder" ${LOGSDIR}
+}
