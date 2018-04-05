@@ -54,7 +54,7 @@ command -v zip >/dev/null && {
   #Zip and remove the log directory
   zip -q -r ${LOGSDIR}.zip ${LOGSDIR}
   rm -R ${LOGSDIR}
-  echo "DTS logs saved in "${LOGSDIR}".zip
+  echo "DTS logs saved in "${LOGSDIR}".zip"
 } || {
   echo "zip utility not found"
   echo "DTS logs saved in folder" ${LOGSDIR}
